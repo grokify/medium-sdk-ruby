@@ -47,6 +47,8 @@ The OAuth 2.0 authorization code grant is designed for where authorization needs
 Using the default authorization URL:
 
 ```ruby
+require 'medium_sdk'
+
 # Initialize SDK with OAuth redirect URI
 client = MediumSdk.new(
   client_id: 'my_client_id',
@@ -127,7 +129,7 @@ Execute the following and then go to the URL in your browser after launching the
 
 ```bash
 $ cd scripts/sinatra
-$ bundle install
+$ bundle
 $ cp example.env .env
 $ vi .env
 $ ruby app.rb
@@ -159,7 +161,7 @@ Medium API Docs
 
 Medium SDK for Ruby is available under an MIT-style license. See [LICENSE.txt](LICENSE.txt) for details.
 
-Medium SDK for Ruby &copy; 2016 by John Wang
+Medium SDK for Ruby &copy; 2016 by [John Wang](https://github.com/grokify)
 
  [gem-version-svg]: https://badge.fury.io/rb/medium_sdk.svg
  [gem-version-link]: http://badge.fury.io/rb/medium_sdk
