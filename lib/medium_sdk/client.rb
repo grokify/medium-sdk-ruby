@@ -1,13 +1,10 @@
 module MediumSdk
   class Client
     attr_accessor :connection
-    attr_accessor :http
-    attr_accessor :token
 
     attr_reader :me
 
     def initialize(opts = {})
-      @endpoint = 'https://api.medium.com/v1/'
       if opts.key? :integration_token
         @connection = MediumSdk::Connection::IntegrationToken.new opts
       elsif opts.key? :client_id

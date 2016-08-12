@@ -97,15 +97,13 @@ data = client.publication_contributors 'publication_id'
 ##### Creating a post
 
 ```ruby
-post = {
+data = client.post, {
   title: "Hard things in software development",
   contentFormat: "html",
   content: "<p>Cache invalidation</p><p>Naming things</p>",
   tags: ["development", "design"],
   publishStatus: "draft"
 }
-
-data = client.post post
 ```
 
 ##### Creating a post under a publication
@@ -113,7 +111,7 @@ data = client.post post
 Creating a post under a publication uses the same method call with the addtion of the `publicationId` parameter.
 
 ```ruby
-post = {
+data = client.post, {
   title: "Hard things in software development",
   contentFormat: "html",
   content: "<p>Cache invalidation</p><p>Naming things</p>",
@@ -121,8 +119,6 @@ post = {
   publishStatus: "draft",
   publicationId: "deadbeef"
 }
-
-data = client.post post
 ```
 
 ### Change Log
