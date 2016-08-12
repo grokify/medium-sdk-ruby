@@ -13,13 +13,17 @@ Medium SDK for Ruby
 
 ## Description
 
-A Ruby SDK for the [Medium.com API](https://github.com/Medium/medium-api-docs) including OAuth 2.0 support with token refresh.
+A Ruby SDK for the [Medium.com API](https://github.com/Medium/medium-api-docs) including:
+
+1. Auth via OAuth 2.0 with token refresh and demo app
+1. Auth via integration token
+1. Get and Post APIs
 
 ## Installation
 
 ### Via Bundler
 
-Add 'medium_sdk' to Gemfile and then run `bundle`:
+Add `medium_sdk` to Gemfile and then run `bundle`:
 
 ```sh
 $ echo "gem 'medium_sdk'" >> Gemfile
@@ -104,7 +108,32 @@ data = client.post, {
 }
 ```
 
-### Change Log
+## Demos
+
+Demos are in the `scripts` directory and use `.env` files for configuration.
+
+### Integration Token Demo
+
+```bash
+$ cd scripts
+$ cp example.env .env
+$ vi .env
+$ ruby me_token.rb
+```
+
+### OAuth 2.0 Demo
+
+Execute the following and then go to the URL in your browser after launching the Sinatra app.
+
+```bash
+$ cd scripts/sinatra
+$ bundle install
+$ cp example.env .env
+$ vi .env
+$ ruby app.rb
+``` 
+
+## Change Log
 
 See [CHANGELOG.md](CHANGELOG.md)
 
