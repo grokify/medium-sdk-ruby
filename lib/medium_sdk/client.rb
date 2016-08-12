@@ -4,6 +4,8 @@ module MediumSdk
     attr_accessor :http
     attr_accessor :token
 
+    attr_reader :me
+
     def initialize(opts = {})
       @endpoint = 'https://api.medium.com/v1/'
       if opts.key? :integration_token
@@ -24,7 +26,8 @@ module MediumSdk
     end
 
     def me()
-      return body_key get_url('me'), 'data'
+      @me = body_key get_url('me'), 'data'
+      return @me
     end
 
     def user_publications(user_id)
@@ -32,9 +35,22 @@ module MediumSdk
       return body_key(res, 'data')
     end
 
-    def publication_post(publication_id, post)
+    def post(post)
+      url = ''
+      if post.key? :publicationId
+        publication_id = post[:publicationId].clone
+        post.delete :publicationId
+        url = File.join 'publications', publication_id, 'posts'
+      else
+        me unless @me
+        unless @me.is_a?(Hash) && @me.key?('id') && @me['id'].to_s.length>0
+          raise 'Authorized User Id is unknown'
+        end
+        id = @me['id']
+        url = File.join 'users', id, 'posts'
+      end
       res = @connection.http.post do |req|
-        req.url File.join 'publications', publication_id, 'posts'
+        req.url url
         req.body = post
       end
       return body_key(res, 'data')

@@ -22,7 +22,7 @@ module MediumSdk::Connection
       init_attributes
       @client_id = opts[:client_id] if opts.key? :client_id
       @client_secret = opts[:client_secret] if opts.key? :client_secret
-      @oauth_redirect_uri = opts[:oauth_redirect_uri] if opts.key? :oauth_redirect_uri
+      @oauth_redirect_uri = opts[:redirect_uri] if opts.key? :redirect_uri
       @scope = opts[:scope] if opts.key? :scope
       @oauth2client = new_oauth2_client()
     end

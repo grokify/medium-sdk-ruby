@@ -28,6 +28,103 @@ $ bundle
 $ gem install medium_sdk
 ```
 
+## Usage
+
+### Authorization
+
+#### Authorization Code Grant
+
+The OAuth 2.0 authorization code grant is designed for where authorization needs to be granted by a 3rd party resource owner.
+
+Using the default authorization URL:
+
+```ruby
+# Initialize SDK with OAuth redirect URI
+client = MediumSdk.new(
+  client_id: 'my_client_id',
+  client_secret: 'my_client_secret',
+  redirect_uri: 'https://example.com/callback/medium'
+)
+
+# Retrieve OAuth authorize url using default redirect URL
+auth_url = client.connection.authorize_uri(
+  scope: 'basicProfile,publishPost',
+  state: 'myState'
+)
+```
+
+On your redirect page, you can exchange your authorization code for an access token using the following:
+
+```ruby
+code  = params['code'] # e.g. using Sinatra to retrieve code param in Redirect URI
+client.connection.authorize_code(code)
+```
+
+#### Integration Token
+
+```ruby
+require 'medium_sdk'
+
+client = MediumSdk.new integration_token: token
+```
+
+### API Requests
+
+#### Users
+
+##### Getting the authenticated user’s details
+
+```ruby
+data = client.me
+```
+
+#### Publications
+
+##### Listing the user’s publications
+
+```ruby
+data = client.user_publications 'user_id'
+```
+
+##### Fetching contributors for a publication
+
+```ruby
+data = client.publication_contributors 'publication_id'
+```
+
+#### Posts
+
+##### Creating a post
+
+```ruby
+post = {
+  title: "Hard things in software development",
+  contentFormat: "html",
+  content: "<p>Cache invalidation</p><p>Naming things</p>",
+  tags: ["development", "design"],
+  publishStatus: "draft"
+}
+
+data = client.post post
+```
+
+##### Creating a post under a publication
+
+Creating a post under a publication uses the same method call with the addtion of the `publicationId` parameter.
+
+```ruby
+post = {
+  title: "Hard things in software development",
+  contentFormat: "html",
+  content: "<p>Cache invalidation</p><p>Naming things</p>",
+  tags: ["development", "design"],
+  publishStatus: "draft",
+  publicationId: "deadbeef"
+}
+
+data = client.post post
+```
+
 ### Change Log
 
 See [CHANGELOG.md](CHANGELOG.md)
