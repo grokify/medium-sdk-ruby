@@ -39,7 +39,7 @@ module MediumSdk::Connection
       elsif token.is_a? String
         if token =~ /^\s*{.+}\s*$/
           token_hash = MultiJson.decode(token)
-          token = OAuth2::AccessToken::from_hash(@oauth2client, token)
+          token = OAuth2::AccessToken::from_hash(@oauth2client, token_hash)
         else
           token = { 'access_token' => token }
           token = OAuth2::AccessToken::from_hash(@oauth2client, token)

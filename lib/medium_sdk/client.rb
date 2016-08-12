@@ -37,6 +37,7 @@ module MediumSdk
         req.url File.join 'publications', publication_id, 'posts'
         req.body = post
       end
+      return body_key(res, 'data')
     end
 
     def publication_contributors(publication_id)
