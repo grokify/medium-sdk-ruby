@@ -45,7 +45,7 @@ $ gem install medium_sdk
 The OAuth 2.0 authorization code grant is designed for where authorization needs to be granted by a 3rd party resource owner.
 
 * Initializing the SDK with the `client_id` parameter will use `MediumSdk::Connection::AuthCode` to manage the connection
-* Token refresh is automatically / transparentl handled by `FaradayMiddleware::OAuth2Refresh`
+* Token refresh is automatically / transparently handled by `FaradayMiddleware::OAuth2Refresh`
 
 ```ruby
 require 'medium_sdk'
