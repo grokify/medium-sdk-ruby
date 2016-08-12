@@ -89,7 +89,7 @@ module MediumSdk::Connection
     def authorize_code(code, opts = {})
       #token = @oauth2client.auth_code.get_token(code, _add_redirect_uri(opts))
 
-      conn = Faraday.new(:url => API_HOST) do |faraday|
+      conn = Faraday.new(url: API_HOST) do |faraday|
         faraday.request  :url_encoded             # form-encode POST params
         faraday.response :json, content_type: /\bjson$/
         faraday.response :logger                  # log requests to STDOUT
