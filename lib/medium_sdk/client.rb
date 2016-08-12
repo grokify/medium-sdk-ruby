@@ -5,10 +5,10 @@ module MediumSdk
     attr_reader :me
 
     def initialize(opts = {})
-      if opts.key? :integration_token
-        @connection = MediumSdk::Connection::IntegrationToken.new opts
-      elsif opts.key? :client_id
+      if opts.key? :client_id
         @connection = MediumSdk::Connection::AuthCode.new opts
+      elsif opts.key? :integration_token
+        @connection = MediumSdk::Connection::IntegrationToken.new opts
       end
     end
 

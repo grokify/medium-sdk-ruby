@@ -15,8 +15,8 @@ Medium SDK for Ruby
 
 A Ruby SDK for the [Medium.com API](https://github.com/Medium/medium-api-docs) including:
 
-1. Auth via OAuth 2.0 with token refresh and demo app
-1. Auth via integration token
+1. Auth via OAuth 2.0 with [automatic token refresh](https://github.com/grokify/faraday_middleware-oauth2_refresh) and [demo app](https://github.com/grokify/medium-sdk-ruby/tree/master/scripts/sinatra)
+1. Auth via integration token with [demo app](https://github.com/grokify/medium-sdk-ruby/blob/master/scripts)
 1. Get and Post APIs
 
 ## Installation
@@ -44,7 +44,8 @@ $ gem install medium_sdk
 
 The OAuth 2.0 authorization code grant is designed for where authorization needs to be granted by a 3rd party resource owner.
 
-Using the default authorization URL:
+* Initializing the SDK with the `client_id` parameter will use `MediumSdk::Connection::AuthCode` to manage the connection
+* Token refresh is automatically / transparentl handled by `FaradayMiddleware::OAuth2Refresh`
 
 ```ruby
 require 'medium_sdk'
@@ -70,12 +71,28 @@ code  = params['code'] # e.g. using Sinatra to retrieve code param in Redirect U
 client.connection.authorize_code(code)
 ```
 
+You can also save and load tokens for use across SDK instances:
+
+```ruby
+# Access `OAuth2::AccessToken` object as hash including `access_token`, `refresh_token`, etc.
+token_hash = client.connection.token.to_hash
+
+# set_token() accepts a hash or OAuth2::AccessToken object
+client.connection.set_token(token_hash)
+```
+
 #### Integration Token
+
+Initializing the SDK with the `integration_token` and not the `client_id` parameter will use `MediumSdk::Connection::IntegrationToken` to manage the connection.
 
 ```ruby
 require 'medium_sdk'
 
+# Initialize SDK with integration token
 client = MediumSdk.new integration_token: token
+
+# Set integration token after initialization
+client.connection.token = token
 ```
 
 ### API Requests
