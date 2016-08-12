@@ -97,6 +97,10 @@ client.connection.token = token
 
 ### API Requests
 
+#### Convenience Methods
+
+Convenience methods are provided which return the `data` property of the response body.
+
 ```ruby
 # Getting the authenticated user’s details
 data = client.me
@@ -125,6 +129,18 @@ data = client.post, {
   publishStatus: "draft",
   publicationId: "deadbeef"
 }
+```
+
+#### Raw Methods
+
+The SDK's Faraday client can be accessed for sending raw requests:
+
+```ruby
+response = client.connection.http.get 'me'
+
+response = client.connection.http do |req|
+  req.url 'me'
+end
 ```
 
 ## Demos
