@@ -35,14 +35,14 @@ module MediumSdk::Connection
 
     def set_token(token)
       if token.is_a? Hash
-        token = OAuth2::AccessToken::from_hash(@oauth2client, token)
+        token = OAuth2::AccessToken::from_hash @oauth2client, token
       elsif token.is_a? String
         if token =~ /^\s*{.+}\s*$/
           token_hash = MultiJson.decode(token)
-          token = OAuth2::AccessToken::from_hash(@oauth2client, token_hash)
+          token = OAuth2::AccessToken::from_hash @oauth2client, token_hash
         else
           token = { 'access_token' => token }
-          token = OAuth2::AccessToken::from_hash(@oauth2client, token)
+          token = OAuth2::AccessToken::from_hash @oauth2client, token
         end
       end
 
