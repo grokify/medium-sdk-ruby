@@ -11,6 +11,10 @@ Medium SDK for Ruby
 [![Docs][docs-rubydoc-svg]][docs-rubydoc-link]
 [![License][license-svg]][license-link]
 
+## Description
+
+A Ruby SDK for the [Medium.com API](https://github.com/Medium/medium-api-docs) including OAuth 2.0 support with token refresh.
+
 ## Installation
 
 ### Via Bundler
@@ -70,33 +74,17 @@ client = MediumSdk.new integration_token: token
 
 ### API Requests
 
-#### Users
-
-##### Getting the authenticated user’s details
-
 ```ruby
+# Getting the authenticated user’s details
 data = client.me
-```
 
-#### Publications
-
-##### Listing the user’s publications
-
-```ruby
+# Listing the user’s publications
 data = client.user_publications 'user_id'
-```
 
-##### Fetching contributors for a publication
-
-```ruby
+# Fetching contributors for a publication
 data = client.publication_contributors 'publication_id'
-```
 
-#### Posts
-
-##### Creating a post
-
-```ruby
+# Creating a user post
 data = client.post, {
   title: "Hard things in software development",
   contentFormat: "html",
@@ -104,13 +92,8 @@ data = client.post, {
   tags: ["development", "design"],
   publishStatus: "draft"
 }
-```
 
-##### Creating a post under a publication
-
-Creating a post under a publication uses the same method call with the addtion of the `publicationId` parameter.
-
-```ruby
+# Creating a publication post
 data = client.post, {
   title: "Hard things in software development",
   contentFormat: "html",
