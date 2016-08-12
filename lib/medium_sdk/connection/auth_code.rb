@@ -52,7 +52,7 @@ module MediumSdk::Connection
 
       @token = token
 
-      @http = Faraday.new(url: api_version_url()) do |conn|
+      @http = Faraday.new(url: api_version_uri()) do |conn|
         conn.request :oauth2_refresh, @token
         conn.request :json
         if @instance_headers.is_a? Hash 
@@ -66,7 +66,7 @@ module MediumSdk::Connection
       end
     end
 
-    def api_version_url()
+    def api_version_uri()
       return File.join API_HOST, API_VERSION
     end
 
