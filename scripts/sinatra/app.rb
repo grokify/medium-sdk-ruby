@@ -11,11 +11,12 @@ Dotenv.load
 client = MediumSdk::Client.new(
   client_id: ENV['MEDIUM_CLIENT_ID'],
   client_secret: ENV['MEDIUM_CLIENT_SECRET'],
-  oauth_redirect_uri: ENV['MEDIUM_OAUTH2_REDIRECT_URI']
+  redirect_uri: ENV['MEDIUM_OAUTH2_REDIRECT_URI'],
 )
 
 get '/' do
   pp client.connection.token
+  pp ENV
   token_json = client.connection.token.nil? \
     ? '' : MultiJson.encode(client.connection.token.to_hash, pretty: true)
 

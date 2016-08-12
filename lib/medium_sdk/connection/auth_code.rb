@@ -74,8 +74,10 @@ module MediumSdk::Connection
       @oauth2client = new_oauth2_client() unless @oauth2client
       opts.merge!({
         'client_id' => @client_id,
-        'response_type' => 'code',
-        'scope' => @scope })
+        'response_type' => 'code'})
+      if ! opts.key(:scope) && ! opts.key('scope') && @scope
+        opts.merge!({ 'scope' => @scope })
+      end
       @oauth2client.auth_code.authorize_url _add_redirect_uri(opts)
     end
 
