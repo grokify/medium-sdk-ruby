@@ -16,7 +16,6 @@ client = MediumSdk::Client.new(
 
 get '/' do
   pp client.connection.token
-  pp ENV
   token_json = client.connection.token.nil? \
     ? '' : MultiJson.encode(client.connection.token.to_hash, pretty: true)
 
