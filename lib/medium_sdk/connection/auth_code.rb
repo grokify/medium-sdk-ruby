@@ -13,6 +13,7 @@ module MediumSdk::Connection
 
     attr_reader :client_id
 
+    attr_accessor :authcode_client
     attr_accessor :oauth2client
     attr_accessor :oauth_redirect_uri
     attr_accessor :http
@@ -25,7 +26,8 @@ module MediumSdk::Connection
       @oauth_redirect_uri = opts[:redirect_uri] if opts.key? :redirect_uri
       @scope = opts[:scope] if opts.key? :scope
       @instance_headers = opts[:instance_headers] if opts.key? :instance_headers
-      @oauth2client = new_oauth2_client()
+      @oauth2client = new_oauth2_client
+      @authcode_client = new_auth_code_client
     end
 
     def init_attributes()
@@ -91,13 +93,6 @@ module MediumSdk::Connection
 
     def authorize_code(code, opts = {})
       #token = @oauth2client.auth_code.get_token(code, _add_redirect_uri(opts))
-
-      conn = Faraday.new(url: API_HOST) do |faraday|
-        faraday.request  :url_encoded             # form-encode POST params
-        faraday.response :json, content_type: /\bjson$/
-        faraday.response :logger                  # log requests to STDOUT
-        faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
-      end
       params = {
         code: code,
         client_id: @client_id,
@@ -105,12 +100,21 @@ module MediumSdk::Connection
         redirect_uri: @oauth_redirect_uri,
         grant_type: 'authorization_code'
       }
-      res = conn.post '/v1/tokens', params
+      res = @authcode_client.post '/v1/tokens', params
       set_token res.body
       return @token
     end
 
-    def new_oauth2_client()
+    def new_auth_code_client
+      return Faraday.new(url: API_HOST) do |faraday|
+        faraday.request  :url_encoded             # form-encode POST params
+        faraday.response :json, content_type: /\bjson$/
+        faraday.response :logger                  # log requests to STDOUT
+        faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+      end
+    end
+
+    def new_oauth2_client
       return OAuth2::Client.new(@client_id, @client_secret,
         site: OAUTH_HOST,
         authorize_url: OAUTH_AUTHZ_ENDPOINT,
