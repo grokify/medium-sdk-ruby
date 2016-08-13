@@ -2,8 +2,6 @@ module MediumSdk
   class Client
     attr_accessor :connection
 
-    attr_reader :me
-
     def initialize(opts = {})
       if opts.key? :client_id
         @connection = MediumSdk::Connection::AuthCode.new opts
@@ -19,16 +17,30 @@ module MediumSdk
     end
 
     def body_key(res, key)
+      if res.status >= 400
+        raise "HTTP Error #{res.status} " + res.pretty_inspect
+      end
       return res.body.key?(key) ? res.body[key] : nil
     end
 
-    def me()
-      @me = body_key get_url('me'), 'data'
-      return @me
+    def me(reload = nil)
+      if @_me.nil? || reload
+        @_me = body_key get_url('me'), 'data'
+      end
+      return @_me
     end
 
-    def user_publications(user_id)
-      res = get_url File.join 'users', user_id, 'publications'
+    def me_id
+      me unless @_me
+      unless @_me.is_a?(Hash) && @_me.key?('id') && @_me['id'].to_s.length>0
+        raise 'Authorized User Id is unknown'
+      end
+      return @_me['id']
+    end
+
+    def user_publications(user_id = nil)
+      user_id = me_id if user_id.nil?
+      res = get_url File.join 'users', user_id.to_s, 'publications'
       return body_key(res, 'data')
     end
 
@@ -39,12 +51,7 @@ module MediumSdk
         post.delete :publicationId
         url = File.join 'publications', publication_id, 'posts'
       else
-        me unless @me
-        unless @me.is_a?(Hash) && @me.key?('id') && @me['id'].to_s.length>0
-          raise 'Authorized User Id is unknown'
-        end
-        id = @me['id']
-        url = File.join 'users', id, 'posts'
+        url = File.join 'users', me_id(), 'posts'
       end
       res = @connection.http.post do |req|
         req.url url

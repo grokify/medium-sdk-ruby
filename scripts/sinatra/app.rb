@@ -21,7 +21,7 @@ get '/' do
 
   erb :index, locals: {
     authorize_uri: client.connection.authorize_uri(
-      scope: 'basicProfile,publishPost',
+      scope: 'basicProfile,listPublications,publishPost',
       state: 'helloWorld'
     ),
     redirect_uri: client.connection.oauth_redirect_uri,

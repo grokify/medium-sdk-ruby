@@ -2,7 +2,7 @@ module MediumSdk
   autoload :Client, 'medium_sdk/client'
   autoload :Connection, 'medium_sdk/connection'
 
-  VERSION = '0.0.1'
+  VERSION = '0.0.2'
 
   class << self
     def new(opts = {})
