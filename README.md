@@ -106,7 +106,8 @@ Convenience methods are provided which return the `data` property of the respons
 data = client.me
 
 # Listing the user’s publications
-data = client.user_publications 'user_id'
+data = client.user_publications           # uses authorized user's userId
+data = client.user_publications 'user_id' # uses explicit userId
 
 # Fetching contributors for a publication
 data = client.publication_contributors 'publication_id'
