@@ -21,7 +21,8 @@ module MediumSdk::Connection
         'Accept-Charset' => 'utf-8'
       }
       @http  = Faraday.new(url: @endpoint, headers: headers) do |conn|
-        conn.request  :json
+        conn.request :multipart
+        conn.request :json
         conn.response :json, content_type: 'application/json'
         conn.adapter  Faraday.default_adapter
       end

@@ -146,7 +146,7 @@ data = client.post, {
 
 #### Raw Methods
 
-The SDK's Faraday client can be accessed for sending raw requests:
+The SDK's Faraday client can be accessed for sending raw requests. This can be used to upload images using `Faraday::UploadIO`.
 
 ```ruby
 response = client.connection.http.get 'me'
@@ -154,7 +154,15 @@ response = client.connection.http.get 'me'
 response = client.connection.http do |req|
   req.url 'me'
 end
+
+# Upload image
+payload = {
+  image: Faraday::UploadIO.new('/path/to/my_image.jpg', 'image/jpeg')
+}
+response = client.connection.http.post 'images', payload
 ```
+
+See the [Faraday project](https://github.com/lostisland/faraday) for more info.
 
 ## Demos
 

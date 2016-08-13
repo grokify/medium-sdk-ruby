@@ -57,6 +57,7 @@ module MediumSdk::Connection
 
       @http = Faraday.new(url: api_version_uri()) do |conn|
         conn.request :oauth2_refresh, @token
+        conn.request :multipart
         conn.request :json
         if @instance_headers.is_a? Hash 
           @instance_headers.each do |k,v|
