@@ -9,7 +9,7 @@ class MediumSdkSetupOAuthTest < Test::Unit::TestCase
     @string = 'deadbeef'
     @redirect_uri = 'https://example.com/callback'
     @sdk = MediumSdk.new client_id: 'dead', client_secret: 'beef', redirect_uri: @redirect_uri
-    @sdk2 = MediumSdk.new client_id: 'dead', client_secret: 'beef', redirect_uri: @redirect_uri
+    @sdk2 = MediumSdk.new client_id: 'dead', client_secret: 'beef', redirect_uri: @redirect_uri, scope: 'listPublications'
   end
 
   def test_main
@@ -36,8 +36,15 @@ class MediumSdkSetupOAuthTest < Test::Unit::TestCase
     token = @sdk.connection.token.to_hash
     assert_equal @string, token[:access_token]
 
+    opts = {}
+    opts = @sdk.connection._add_redirect_uri opts
+    assert_equal @redirect_uri, opts[:redirect_uri]
+
     auth_uri = @sdk.connection.authorize_uri
     assert_equal 'https://medium.com/m/oauth/authorize?client_id=dead&redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&response_type=code', auth_uri
+
+    auth_uri = @sdk2.connection.authorize_uri
+    assert_equal 'https://medium.com/m/oauth/authorize?client_id=dead&redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&response_type=code&scope=listPublications', auth_uri
 
     assert_raise do 
       @sdk2.connection.set_token(['fail'])
