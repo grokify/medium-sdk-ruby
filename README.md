@@ -59,7 +59,7 @@ client = MediumSdk.new(
 
 # Retrieve OAuth authorize url using default redirect URL
 auth_url = client.connection.authorize_uri(
-  scope: 'basicProfile,publishPost',
+  scope: 'basicProfile,listPublications,publishPost',
   state: 'myState'
 )
 ```
