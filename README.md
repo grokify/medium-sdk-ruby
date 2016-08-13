@@ -121,17 +121,7 @@ data = client.post, {
   publishStatus: "draft"
 }
 
-# Creating a publication post
-data = client.post, {
-  title: "Hard things in software development",
-  contentFormat: "html",
-  content: "<p>Cache invalidation</p><p>Naming things</p>",
-  tags: ["development", "design"],
-  publishStatus: "public",
-  publicationId: "deadbeef"
-}
-
-# Backdating posts using `publishedAt` and `notifyFollowers`
+# Creating a backdated user post using `publishedAt` and `notifyFollowers`
 data = client.post, {
   title: "Hard things in software development",
   contentFormat: "html",
@@ -142,6 +132,15 @@ data = client.post, {
   notifyFollowers: false
 }
 
+# Creating a publication post using `publicationId`
+data = client.post, {
+  title: "Hard things in software development",
+  contentFormat: "html",
+  content: "<p>Cache invalidation</p><p>Naming things</p>",
+  tags: ["development", "design"],
+  publishStatus: "public",
+  publicationId: "deadbeef"
+}
 ```
 
 #### Raw Methods
