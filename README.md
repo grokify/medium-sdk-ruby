@@ -17,8 +17,8 @@ A Ruby SDK for the [Medium.com API](https://github.com/Medium/medium-api-docs) i
 
 1. Auth via OAuth 2.0 with [automatic token refresh](https://github.com/grokify/faraday_middleware-oauth2_refresh) and [demo app](https://github.com/grokify/medium-sdk-ruby/tree/master/scripts/sinatra). This is necessary to request the `listPublications` or `uploadImage` access scopes.
 1. Auth via integration token with [demo app](https://github.com/grokify/medium-sdk-ruby/blob/master/scripts)
-1. Get and Post APIs
-1. Raw Faraday HTTP client
+1. Get and Post Convenience APIs
+1. Raw APIs via Faraday HTTP client
 
 
 
