@@ -85,12 +85,27 @@ class MediumSdkApiMeTest < Test::Unit::TestCase
     "licenseUrl": "https://medium.com/policy/9db0094a1e0f"
   }
 }')
+    body_post_publication = MultiJson.decode('{
+  "data": {
+    "id": "e6f36a",
+    "title": "Liverpool FC",
+    "authorId": "5303d74c64f66366f00cb9b2a94f3251bf5",
+    "tags": ["football", "sport", "Liverpool"],
+    "url": "https://medium.com/@majelbstoat/liverpool-fc-e6f36a",
+    "canonicalUrl": "http://jamietalbot.com/posts/liverpool-fc",
+    "publishStatus": "public",
+    "publishedAt": 1442286338435000,
+    "license": "all-rights-reserved",
+    "licenseUrl": "https://medium.com/policy/9db0094a1e0f"
+  }
+}')
 
     stubs = Faraday::Adapter::Test::Stubs.new do |stub|
       stub.get('me') { |env| [200, {}, body_me] }
       stub.get('users/5303d74c64f66366f00cb9b2a94f3251bf5/publications') { |env| [200, {}, body_user_publications] }
       stub.get('publications/b45573563f5a/contributors') { |env| [ 200, {}, body_publication_contributors ]}
       stub.post('users/5303d74c64f66366f00cb9b2a94f3251bf5/posts') { |env| [ 200, {}, body_post ]}
+      stub.post('publications/b45573563f5a/posts') { |env| [ 200, {}, body_post_publication ]}
     end
     @client = Faraday.new do |builder|
       builder.adapter :test, stubs do |stub|
@@ -98,12 +113,14 @@ class MediumSdkApiMeTest < Test::Unit::TestCase
         stub.get('users/5303d74c64f66366f00cb9b2a94f3251bf5/publications') { |env| [200, {}, body_user_publications] }
         stub.get('publications/b45573563f5a/contributors') { |env| [ 200, {}, body_publication_contributors ]}
         stub.post('users/5303d74c64f66366f00cb9b2a94f3251bf5/posts') { |env| [ 200, {}, body_post ]}
+        stub.post('publications/b45573563f5a/posts') { |env| [ 200, {}, body_post_publication ]}
       end
     end
 
     stubs.get('users/5303d74c64f66366f00cb9b2a94f3251bf5/publications') { |env| [ 200, {}, body_user_publications ]}
     stubs.get('publications/b45573563f5a/contributors') { |env| [ 200, {}, body_publication_contributors ]}
     stubs.post('users/5303d74c64f66366f00cb9b2a94f3251bf5/posts') { |env| [ 200, {}, body_post ]}
+    stubs.post('publications/b45573563f5a/posts') { |env| [ 200, {}, body_post_publication ]}
 
     @token = 'deadbeef'
     @sdk = MediumSdk.new integration_token: @token
@@ -127,5 +144,8 @@ class MediumSdkApiMeTest < Test::Unit::TestCase
 
     data4 = @sdk.post @post_request
     assert_equal 1442286338435, data4['publishedAt']
+
+    data4 = @sdk.post @post_request.merge({publicationId: 'b45573563f5a'})
+    assert_equal 1442286338435000, data4['publishedAt']
   end
 end
