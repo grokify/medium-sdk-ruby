@@ -24,7 +24,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'oauth2', '~> 1.0', '>= 1.0.0'
 
   s.add_development_dependency 'coveralls', '~> 0'
-  s.add_development_dependency 'mocha'
   s.add_development_dependency 'rake', '~> 0'
   s.add_development_dependency 'simplecov', '~> 0'
   s.add_development_dependency 'test-unit', '>= 0'
