@@ -42,7 +42,7 @@ $ gem install medium_sdk
 
 #### Authorization Code Grant
 
-The OAuth 2.0 authorization code grant is designed for where authorization needs to be granted by a 3rd party resource owner.
+The OAuth 2.0 authorization code grant is designed for where authorization needs to be granted by a 3rd party resource owner. This is required if your app wishes to request the `listPublications` or `uploadImage` scopes.
 
 * Initializing the SDK with the `client_id` parameter will use `MediumSdk::Connection::AuthCode` to manage the connection
 * Token refresh is automatically / transparently handled by `FaradayMiddleware::OAuth2Refresh`

@@ -8,7 +8,7 @@ Dotenv.load
 
 token = ENV['MEDIUM_INTEGRATION_TOKEN']
 
-client = MediumSdk.new integration_token: token, scope: 'listPublications'
+client = MediumSdk.new integration_token: token
 
 data = client.me
 
