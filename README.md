@@ -127,9 +127,21 @@ data = client.post, {
   contentFormat: "html",
   content: "<p>Cache invalidation</p><p>Naming things</p>",
   tags: ["development", "design"],
-  publishStatus: "draft",
+  publishStatus: "public",
   publicationId: "deadbeef"
 }
+
+# Backdating posts using `publishedAt` and `notifyFollowers`
+data = client.post, {
+  title: "Hard things in software development",
+  contentFormat: "html",
+  content: "<p>Cache invalidation</p><p>Naming things</p>",
+  tags: ["development", "design"],
+  publishStatus: "public",
+  publishedAt: "2016-08-12T00:00:00+00:00",
+  notifyFollowers: false
+}
+
 ```
 
 #### Raw Methods
