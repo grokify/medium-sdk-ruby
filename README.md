@@ -193,6 +193,15 @@ end
 
 See the [Faraday project](https://github.com/lostisland/faraday) for more info.
 
+## Swagger Spec
+
+A Swagger 2.0 spec is included with this SDK for reference.
+
+| Format | Validation |
+|--------|------------|
+| [`JSON`](docs/medium-api-v1-swagger.json) | ![Medium Swagger Spec JSON Validation](http://online.swagger.io/validator?url=https%3A%2F%2Fraw.githubusercontent.com%2FOAI%2FOpenAPI-Specification%2Fmaster%2Fexamples%2Fv2.0%2Fjson%2Fpetstore-expanded.json) |
+| [`YAML`](docs/medium-api-v1-swagger.yaml) | ![Medium Swagger Spec YAML Validation](http://online.swagger.io/validator?url=https%3A%2F%2Fraw.githubusercontent.com%2FOAI%2FOpenAPI-Specification%2Fmaster%2Fexamples%2Fv2.0%2Fjson%2Fpetstore-expanded.yaml) |
+
 ## Demos
 
 Demos are in the `scripts` directory and use `.env` files for configuration.
