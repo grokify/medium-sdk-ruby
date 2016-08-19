@@ -2,6 +2,7 @@ CHANGELOG
 ---------
 - **2016-08-18**: 0.0.3
   1. Add Swagger spec in JSON and YAML formats
+  1. Add image upload example on `README.md`
 - **2016-08-12**: 0.0.2
   1. Increase test coverage to 97% from 65%
   1. Update user_publications method to use authorized user's `userId` as default
