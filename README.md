@@ -97,7 +97,7 @@ client = MediumSdk.new integration_token: token
 client.connection.token = token
 ```
 
-### Resources
+### Resource Methods
 
 See the Swagger 2.0 spec in [YAML](docs/medium-api-v1-swagger.yaml) and [JSON](docs/medium-api-v1-swagger.json) for more info.
 
@@ -179,7 +179,7 @@ payload = {
 response = client.connection.http.post 'images', payload
 ```
 
-### Direct HTTP Client
+### Raw HTTP Client
 
 The SDK's Faraday client can be accessed for sending raw requests. This can be used to upload images using `Faraday::UploadIO`.
 
