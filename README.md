@@ -19,7 +19,7 @@ A Ruby SDK for the [Medium.com API](https://github.com/Medium/medium-api-docs) i
 1. Auth via integration token with [demo app](https://github.com/grokify/medium-sdk-ruby/blob/master/scripts)
 1. Get and Post convenience methods
 1. Raw HTTP methods via Faraday client useful for image upload
-1. [Swagger 2.0 spec](docs/medium-api-v1-swagger.json)
+1. [Swagger 2.0 spec in YAML](docs/medium-api-v1-swagger.yaml) and [JSON](docs/medium-api-v1-swagger.json)
 
 ## Installation
 
@@ -98,6 +98,8 @@ client.connection.token = token
 ```
 
 ### Resources
+
+See the Swagger 2.0 spec in [YAML](docs/medium-api-v1-swagger.yaml) and [JSON](docs/medium-api-v1-swagger.json) for more info.
 
 #### Users
 
