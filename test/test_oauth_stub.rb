@@ -1,8 +1,6 @@
 require './test/test_base.rb'
 
 require 'faraday'
-require 'multi_json'
-require 'pp'
 
 class MediumSdkOAuthStubTest < Test::Unit::TestCase
   def setup
@@ -10,7 +8,7 @@ class MediumSdkOAuthStubTest < Test::Unit::TestCase
     @redirect_uri = 'https://example.com/callback'
     @sdk = MediumSdk.new client_id: 'dead', client_secret: 'beef', redirect_uri: @redirect_uri
 
-    @body_token = MultiJson.decode('{
+    @body_token = JSON.parse('{
   "token_type": "Bearer",
   "access_token": "dead",
   "refresh_token": "beef",

@@ -1,10 +1,5 @@
 require './test/test_base.rb'
 
-require 'faraday'
-require 'multi_json'
-
-require 'pp'
-
 class MediumSdkApiMeRaiseTest < Test::Unit::TestCase
   def setup
     @token = 'deadbeef'

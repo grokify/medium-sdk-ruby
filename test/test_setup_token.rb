@@ -1,8 +1,5 @@
 require './test/test_base.rb'
 
-require 'faraday'
-require 'oauth2'
-
 class MediumSdkSetupTokenTest < Test::Unit::TestCase
   def setup
     @token = 'deadbeef'

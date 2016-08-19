@@ -1,13 +1,13 @@
 require './test/test_base.rb'
 
 require 'faraday'
-require 'multi_json'
+require 'json'
 
 require 'pp'
 
 class MediumSdkApiMeTest < Test::Unit::TestCase
   def setup
-    body_me = MultiJson.decode('{
+    body_me = JSON.parse('{
   "data": {
     "id": "5303d74c64f66366f00cb9b2a94f3251bf5",
     "username": "majelbstoat",
@@ -16,7 +16,7 @@ class MediumSdkApiMeTest < Test::Unit::TestCase
     "imageUrl": "https://images.medium.com/0*fkfQiTzT7TlUGGyI.png"
   }
 }')
-    body_user_publications = MultiJson.decode('{
+    body_user_publications = JSON.parse('{
   "data": [
     {
       "id": "b969ac62a46b",
@@ -34,7 +34,7 @@ class MediumSdkApiMeTest < Test::Unit::TestCase
     }
   ]
 }')
-    body_publication_contributors = MultiJson.decode('{
+    body_publication_contributors = JSON.parse('{
   "data": [
     {
       "publicationId": "b45573563f5a",
@@ -63,7 +63,7 @@ class MediumSdkApiMeTest < Test::Unit::TestCase
     }
   ]
 }')
-    @post_request = MultiJson.decode('{
+    @post_request = JSON.parse('{
   "title": "Liverpool FC",
   "contentFormat": "html",
   "content": "<h1>Liverpool FC</h1><p>You’ll never walk alone.</p>",
@@ -71,7 +71,7 @@ class MediumSdkApiMeTest < Test::Unit::TestCase
   "tags": ["football", "sport", "Liverpool"],
   "publishStatus": "public"
 }')
-    body_post = MultiJson.decode('{
+    body_post = JSON.parse('{
   "data": {
     "id": "e6f36a",
     "title": "Liverpool FC",
@@ -85,7 +85,7 @@ class MediumSdkApiMeTest < Test::Unit::TestCase
     "licenseUrl": "https://medium.com/policy/9db0094a1e0f"
   }
 }')
-    body_post_publication = MultiJson.decode('{
+    body_post_publication = JSON.parse('{
   "data": {
     "id": "e6f36a",
     "title": "Liverpool FC",

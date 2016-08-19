@@ -1,8 +1,7 @@
 require './test/test_base.rb'
 
 require 'faraday'
-require 'multi_json'
-require 'oauth2'
+require 'json'
 
 class MediumSdkSetupOAuthTest < Test::Unit::TestCase
   def setup
@@ -27,7 +26,7 @@ class MediumSdkSetupOAuthTest < Test::Unit::TestCase
     token = {
       'access_token' => @string + @string
     }
-    token2 = MultiJson.encode token
+    token2 = JSON.generate token
     @sdk.connection.set_token token2
     token3 = @sdk.connection.token.to_hash
     assert_equal (@string + @string), token3[:access_token]  
