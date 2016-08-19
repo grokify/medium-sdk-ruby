@@ -199,8 +199,8 @@ A Swagger 2.0 spec is included with this SDK for reference.
 
 | Format | Validation |
 |--------|------------|
-| [`JSON`](docs/medium-api-v1-swagger.json) | ![Medium Swagger Spec JSON Validation](http://online.swagger.io/validator?url=https%3A%2F%2Fgithub.com%2Fgrokify%2Fmedium-sdk-ruby%2Fblob%2Fmaster%2Fdocs%2Fmedium-api-v1-swagger.json) |
-| [`YAML`](docs/medium-api-v1-swagger.yaml) | ![Medium Swagger Spec YAML Validation](http://online.swagger.io/validator?url=https%3A%2F%2Fgithub.com%2Fgrokify%2Fmedium-sdk-ruby%2Fblob%2Fmaster%2Fdocs%2Fmedium-api-v1-swagger.yaml) |
+| [`JSON Spec`](docs/medium-api-v1-swagger.json) | [Validate JSON](http://online.swagger.io/validator?url=https%3A%2F%2Fgithub.com%2Fgrokify%2Fmedium-sdk-ruby%2Fblob%2Fmaster%2Fdocs%2Fmedium-api-v1-swagger.json) |
+| [`YAML Spec`](docs/medium-api-v1-swagger.yaml) | [Validate YAML](http://online.swagger.io/validator?url=https%3A%2F%2Fgithub.com%2Fgrokify%2Fmedium-sdk-ruby%2Fblob%2Fmaster%2Fdocs%2Fmedium-api-v1-swagger.yaml) |
 
 ## Demos
 
