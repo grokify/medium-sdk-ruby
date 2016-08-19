@@ -232,6 +232,10 @@ Medium API Docs
 
 * https://github.com/Medium/medium-api-docs
 
+## Credits
+
+1. Swagger validation and YAML-to-JSON conversion by [`swagger-parser`](https://github.com/BigstickCarpet/swagger-parser).
+
 ## Contributing
 
 1. Fork it ( http://github.com/grokify/medium-sdk-ruby/fork )
