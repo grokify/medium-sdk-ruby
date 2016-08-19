@@ -140,7 +140,11 @@ data = client.post, {
   tags: ["development", "design"],
   publishStatus: "draft"
 }
+```
 
+##### Creating a backdated post
+
+```ruby
 # Creating a backdated user post using `publishedAt` and `notifyFollowers`
 data = client.post, {
   title: "Hard things in software development",
