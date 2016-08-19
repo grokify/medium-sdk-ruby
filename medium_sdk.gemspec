@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.version     = version
   s.date        = '2016-08-18'
   s.summary     = 'Medium SDK - Ruby SDK for the Medium.com API'
-  s.description = 'A Ruby SDK for the Medium.com API with OAuth 2 support'
+  s.description = 'A Ruby SDK for the Medium.com API with OAuth 2 support and Swagger spec'
   s.authors     = ['John Wang']
   s.email       = 'johncwang@gmail.com'
   s.homepage    = 'https://github.com/grokify/'
