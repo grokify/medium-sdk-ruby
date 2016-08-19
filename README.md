@@ -163,7 +163,7 @@ data = client.post, {
   content: "<p>Cache invalidation</p><p>Naming things</p>",
   tags: ["development", "design"],
   publishStatus: "public",
-  publicationId: "deadbeef"
+  publicationId: "b45573563f5a"
 }
 ```
 
