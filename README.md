@@ -19,6 +19,7 @@ A Ruby SDK for the [Medium.com API](https://github.com/Medium/medium-api-docs) i
 1. Auth via integration token with [demo app](https://github.com/grokify/medium-sdk-ruby/blob/master/scripts)
 1. Get and Post convenience methods
 1. Raw HTTP methods via Faraday client useful for image upload
+1. [Swagger 2.0 spec](docs/swagger-api-v1-swagger.json)
 
 ## Installation
 
@@ -96,23 +97,39 @@ client = MediumSdk.new integration_token: token
 client.connection.token = token
 ```
 
-### API Requests
+### Resources
 
-#### Convenience Methods
+#### Users
 
-Convenience methods are provided which return the `data` property of the response body.
+##### Getting the authenticated user’s details
 
 ```ruby
 # Getting the authenticated user’s details
 data = client.me
+```
 
+#### Publications
+
+##### Listing the user’s publications
+
+```ruby
 # Listing the user’s publications
 data = client.user_publications           # uses authorized user's userId
 data = client.user_publications 'user_id' # uses explicit userId
+```
 
+##### Fetching contributors for a publication
+
+```ruby
 # Fetching contributors for a publication
 data = client.publication_contributors 'publication_id'
+```
 
+#### Posts
+
+##### Creating a post
+
+```ruby
 # Creating a user post
 data = client.post, {
   title: "Hard things in software development",
@@ -132,7 +149,11 @@ data = client.post, {
   publishedAt: "2016-08-12T00:00:00+00:00",
   notifyFollowers: false
 }
+```
 
+##### Creating a post under a publication
+
+```ruby
 # Creating a publication post using `publicationId`
 data = client.post, {
   title: "Hard things in software development",
@@ -144,7 +165,19 @@ data = client.post, {
 }
 ```
 
-#### Raw Methods
+#### Images
+
+##### Uploading an image
+
+```ruby
+# Upload image
+payload = {
+  image: Faraday::UploadIO.new('/path/to/my_image.jpg', 'image/jpeg')
+}
+response = client.connection.http.post 'images', payload
+```
+
+### Direct HTTP Client
 
 The SDK's Faraday client can be accessed for sending raw requests. This can be used to upload images using `Faraday::UploadIO`.
 
@@ -154,12 +187,6 @@ response = client.connection.http.get 'me'
 response = client.connection.http do |req|
   req.url 'me'
 end
-
-# Upload image
-payload = {
-  image: Faraday::UploadIO.new('/path/to/my_image.jpg', 'image/jpeg')
-}
-response = client.connection.http.post 'images', payload
 ```
 
 See the [Faraday project](https://github.com/lostisland/faraday) for more info.

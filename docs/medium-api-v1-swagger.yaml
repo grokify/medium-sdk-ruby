@@ -51,6 +51,8 @@ paths:
       responses:
         "200":
           description: "a list of publication objects"
+          schema:
+            $ref: "#/definitions/PublicationListData"
           examples:
             application/json: |-
               {
@@ -71,6 +73,10 @@ paths:
                   }
                 ]
               }
+        "401":
+          description: "Unauthorized: The accessToken is invalid, lacks the listPublications scope or has been revoked."
+        "403":
+          description: "Forbidden: The request attempts to list publications for another user."
   /publications/{publicationId}/contributors:
     get:
       summary: "Publication Contributors"
@@ -86,6 +92,8 @@ paths:
       responses:
         "200":
           description: "the contributors as list of resources under a publication"
+          schema:
+            $ref: "#/definitions/ContributorListData"
           examples:
             application/json: |-
               {
@@ -117,6 +125,8 @@ paths:
                   }
                 ]
               }
+        "401":
+          description: "Unauthorized: The accessToken is invalid, or has been revoked."
   /users/{authorId}/posts:
     post:
       summary: "Creating a post"
@@ -148,6 +158,12 @@ paths:
                   "licenseUrl": "https://medium.com/policy/9db0094a1e0f"
                 }
               }
+        "400":
+          description: "Bad Request: Required fields were invalid, not specified."
+        "401":
+          description: "Unauthorized: The access token is invalid or has been revoked."
+        "403":
+          description: "Forbidden: The user does not have permission to publish, or the authorId in the request path points to wrong/non-existent user."
   /publications/{publicationId}/posts:
     post:
       summary: "Creating a post under a publication"
@@ -155,7 +171,7 @@ paths:
       parameters:
         - name: "publicationId"
           in: "path"
-          description: "The publicationId of the publication"
+          description: "ID of the publication this post was created under. This matches the publication ID requested in the URL of the request"
           required: true
           type: "string"
       responses:
@@ -179,6 +195,12 @@ paths:
                   "licenseUrl": "https://medium.com/policy/9db0094a1e0f"
                 }
               }
+        "400":
+          description: "Bad Request: Required fields were invalid, not specified."
+        "401":
+          description: "Unauthorized: The access token is invalid or has been revoked."
+        "403":
+          description: "Forbidden: The publicationId in request path doesn’t point to a publication that the user can publish into."
   /images:
     post:
       summary: "Uploading an image"
@@ -186,6 +208,8 @@ paths:
       responses:
         "200":
           description: "an Image object within a data envelope."
+          schema:
+            $ref: "#/definitions/ImageData"
           examples:
             application/json: |-
               {
@@ -195,6 +219,24 @@ paths:
                 }
               }
 definitions:
+  Contributor:
+    properties:
+      publicationId:
+        type: string
+        description: An ID for the publication. This can be lifted from response of publications above
+      userId:
+        type: string
+        description: A user ID of the contributor.
+      role:
+        type: string
+        description: Role of the user identified by userId in the publication identified by publicationId. 'editor' or 'writer'
+  ContributorListData:
+    properties:
+      data:
+        type: array
+        items:
+          $ref: "#/definitions/Contributor"
+        description: a list of contributor objects within a data envelope
   Image:
     properties:
       url:
@@ -203,6 +245,11 @@ definitions:
       md5:
         type: string
         description: "An MD5 hash of the image data."
+  ImageData:
+    properties:
+      data:
+        description: an image object within a data envelope
+        $ref: "#/definitions/Image"
   Post:
     properties:
       id:
@@ -240,6 +287,30 @@ definitions:
       data:
         description: a post object within a data envelope
         $ref: "#/definitions/Post"
+  Publication:
+    properties:
+      id:
+        type: string
+        description: A unique identifier for the publication.
+      name:
+        type: string
+        description: The publication’s name on Medium.
+      description:
+        type: string
+        description: Short description of the publication
+      url:
+        type: string
+        description: The URL to the publication’s homepage
+      imageUrl:
+        type: string
+        description: The URL to the publication’s image/logo
+  PublicationListData:
+    properties:
+      data:
+        type: array
+        items:
+          $ref: "#/definitions/Publication"
+        description: a list of publication objects within a data envelope
   User:
     properties:
       id:
