@@ -44,6 +44,21 @@ module MediumSdk
       return body_key(res, 'data')
     end
 
+    def contributing_publications(user_id = nil)
+      publications = []
+      user_id = me_id if user_id.nil?
+      all_publications = user_publications
+      all_publications_ids = all_publications.map { |x| x["id"] }
+      all_publications_ids.each do |pub_id|
+        publication_contributors(pub_id).each do |contributor|
+          if contributor["userId"] == user_id && contributor["role"] == "editor"
+            publications << all_publications.select {|pub| pub["id"] == contributor["publicationId"] }
+          end
+        end 
+      end
+      return publications.flatten
+    end
+
     def post(post)
       url = ''
       if post.key? :publicationId
